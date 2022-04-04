@@ -52,7 +52,7 @@ class LoginController extends Controller
             {
                 return response()->json([
                     'validate_err' => 'Your email or password are incorrect.', 
-                ]);
+                ]);     
             }
         }    
     }
