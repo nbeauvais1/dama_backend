@@ -10,6 +10,7 @@ use App\Models\InterestedUser;
 class interestedController extends Controller
 {
     public function save(Request $request){
+        try{
         $posting_id = $request->query('id');
         $user_id = session('session_user_id');
 
@@ -19,17 +20,31 @@ class interestedController extends Controller
         $interested->user_id = $user_id;
 
         $interested->save();
-        session::Flash('msg', 'The posting has been added to your dashboard.');
+        }
+        catch (\Exception $e) {  
+            return back()->with('error', "An error occured: " . $e->getMessage());
+        }
+        catch (\Error $e) {  
+            return back()->with('error', "An error occured: " . $e->getMessage());
+        }
+        session::Flash('message', 'The posting has been added to your dashboard.');
         return redirect('/view-jobs');
     }
 
     public function delete(Request $request){
+        try{
         $posting_id = $request->query('id');
 
         InterestedUser::where('user_job_id', $posting_id)
                     ->update(array('interested_yn'=>"N"));
-                    
-        session::Flash('msg', 'The posting has been removed from interested list.');
+        }
+        catch (\Exception $e) {  
+            return back()->with('error', "An error occured: " . $e->getMessage());
+        }
+        catch (\Error $e) {  
+            return back()->with('error', "An error occured: " . $e->getMessage());
+        }       
+        session::Flash('message', 'The posting has been removed from interested list.');
         return redirect('/ct-dashboard');
     }
 

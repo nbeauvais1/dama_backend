@@ -46,15 +46,12 @@ class LoginController extends Controller
                 User::where('email', '=', $email)->update([
                 'date_last_login' => "$current_date",]);
 
-                return response()->json([
-                    'status' => 200,
-                    'message' => 'You are now logged in.',
-                ]);
+                return Member::where('email', $email)->get();
             }
             else 
             {
                 return response()->json([
-                    'validate_err' => 'Your email or password are incorrect.',
+                    'validate_err' => 'Your email or password are incorrect.', 
                 ]);
             }
         }    

@@ -9,7 +9,7 @@ class LogoutController extends Controller
 {  
     public function logout() {
         Session::flush();
-        Session::flash('msg', 'You have been logged out.'); 
+        Session::flash('message', 'You have been logged out.'); 
         return redirect('/');
     }
 }

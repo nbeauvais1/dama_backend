@@ -70,8 +70,12 @@ Route::get('/delete-event','App\Http\Controllers\EventController@delete');
 // Insert a Course
 Route::get('/insert-course','App\Http\Controllers\InsertCourseController@index');
 Route::post('/course_inserted','App\Http\Controllers\InsertCourseController@insert');
+Route::get('/update-course','App\Http\Controllers\CourseController@update');
+Route::post('/course-updated','App\Http\Controllers\CourseController@insertUpdate');
+Route::get('/delete-course','App\Http\Controllers\CourseController@delete');
 
 // Course Sign Up
+Route::get('/courses-list','App\Http\Controllers\CourseController@index');
 Route::get('/course-form','App\Http\Controllers\CourseController@show');
 Route::post('/courses','App\Http\Controllers\CourseController@insert');
 Route::get('/ct-dashboard','App\Http\Controllers\DashBoardNController@dashb');
@@ -100,3 +104,6 @@ Route::get('/forget-password', 'App\Http\Controllers\ForgotPasswordController@sh
 Route::post('/forget-password','App\Http\Controllers\ForgotPasswordController@submitForgetPasswordForm');
 Route::get('/resetPassword/{token}','App\Http\Controllers\ForgotPasswordController@showResetPasswordForm');
 Route::post('/resetPassword','App\Http\Controllers\ForgotPasswordController@submitResetPasswordForm');
+
+// Email List
+Route::get('/email-list','App\Http\Controllers\EmailListController@index');

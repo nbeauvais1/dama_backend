@@ -10,22 +10,25 @@ use App\Models\MembershipType;
 
 // Courses
 Route::get('/all_courses', function () {
-    return Course::all();
+    return Course::where('deleted_yn', 'N')->get();
 });
 
 // Events
 Route::get('/all_events', function () {
-    return Event::all();
+    return Event::where('deleted_yn', 'N')->get();
 });
 
 // Job Postings
 Route::get('/all_jobs', function () {
-    return JobPostings::all();
+    return JobPostings::where('job_filled_yn', 'N')->get();
 });
 
 // Users
 Route::get('/all_members', function () {
-    return Member::all();
+    $now = DB::raw('NOW()');
+    return Member::join('user_membership', 'user.user_id', '=', 'user_membership.user_id')
+    ->where('expiry_date', '>', $now)
+    ->get();
 });
 
 // Membership Types
