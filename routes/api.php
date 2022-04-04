@@ -32,3 +32,7 @@ Route::get('/all_members', function () {
 Route::get('/all_membership_types', function () {
     return MembershipType::all();
 });
+
+
+// Login
+Route::post('/signin', 'App\Http\Controllers\membershipController@store');
