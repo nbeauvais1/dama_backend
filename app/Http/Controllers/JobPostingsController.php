@@ -72,20 +72,4 @@ class JobPostingsController extends Controller
         return redirect('/ct-dashboard');
     }
 
-    public function viewApps(Request $request) {
-        $posting_id = $request->query('id');
-
-        $applications = applications::where('posting_id', $posting_id)->get();
-
-        return view('application', ['applications'=>$applications]);
-    }
-
-    public function viewIndiv(Request $request) {
-
-        $app_name = $request->query('name');
-
-        return Storage::download('app/public/resumes/'.$app_name);
-
-    }
-
 }

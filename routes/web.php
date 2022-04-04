@@ -72,7 +72,6 @@ Route::get('/insert-course','App\Http\Controllers\InsertCourseController@index')
 Route::post('/course_inserted','App\Http\Controllers\InsertCourseController@insert');
 
 // Course Sign Up
-Route::get('/courses-list','App\Http\Controllers\CourseController@index');
 Route::get('/course-form','App\Http\Controllers\CourseController@show');
 Route::post('/courses','App\Http\Controllers\CourseController@insert');
 Route::get('/ct-dashboard','App\Http\Controllers\DashBoardNController@dashb');
@@ -85,6 +84,9 @@ Route::get('/edit-job','App\Http\Controllers\JobPostingsController@update');
 Route::post('/job_updated','App\Http\Controllers\JobPostingsController@insertUpdate');
 Route::get('/view_app','App\Http\Controllers\JobPostingsController@viewApps');
 Route::get('/indiv_app','App\Http\Controllers\JobPostingsController@viewIndiv');
+
+// Route for Mailing
+Route::post('/send_email', 'App\Http\Controllers\ViewJobsController@mail');
 
 // View Job Postings
 Route::get('/view-jobs','App\Http\Controllers\ViewJobsController@index');

@@ -28,7 +28,6 @@
             <h3>{{$your_posting->job_title}}</h3>
             <a href="/job-filled?id={{$your_posting->posting_id}}">Mark Job as Filled</a>
             <a href="/edit-job?id={{$your_posting->posting_id}}">Edit Posting</a>
-            <a href="/view_app?id={{$your_posting->posting_id}}">View Applications</a>
         </div>
 @endforeach
 

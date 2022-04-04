@@ -14,12 +14,9 @@ use App\Models\InterestedUser;
 class CourseController extends Controller
 {
     public function index(){
-
         $courses = Course::all();
-        return view('courses-list',['courses'=>$courses]);
-        
+        return view('courses-list',['courses'=>$courses]);        
     }
-
 
     public function show(Request $request){
 
