@@ -38,4 +38,4 @@ Route::get('/all_membership_types', function () {
 
 
 // Login
-Route::post('/signin', 'App\Http\Controllers\membershipController@postLogin');
+Route::post('/signin', 'App\Http\Controllers\loginApiController@postLogin');
