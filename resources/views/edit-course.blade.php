@@ -24,10 +24,7 @@ $admin_status = DB::table('user')
             <option value="self-study">Self-Study</option>
             <option value="instructor-led">Instructor-Led</option>
         </select>
-
-        <label for="course_price">Price</label>
-        <input type="text" id="course_price" name="course_price" value="{{$edit_course->course_price}}">
-
+        
         <input type="submit" value="Update Course" name="course-btn" class="button">
 
         @else

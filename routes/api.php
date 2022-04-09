@@ -22,6 +22,10 @@ Route::get('/all_events', function () {
 Route::get('/all_jobs', function () {
     return JobPostings::where('job_filled_yn', 'N')->get();
 });
+Route::post('/job_inserted','App\Http\Controllers\JobPostingsApiController@insert');
+Route::get('/job_filled','App\Http\Controllers\JobPostingsApiController@delete');
+Route::post('/job_updated','App\Http\Controllers\JobPostingsApiController@insertUpdate');
+
 
 // Users
 Route::get('/all_members', function () {
@@ -38,4 +42,4 @@ Route::get('/all_membership_types', function () {
 
 
 // Login
-Route::post('/signin', 'App\Http\Controllers\loginApiController@postLogin');
+Route::post('/signin', 'App\Http\Controllers\LoginApiController@postLogin');

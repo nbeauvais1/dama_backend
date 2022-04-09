@@ -10,12 +10,14 @@ use App\Models\userCourse;
 use App\Models\Member;
 use App\Models\JobPostings;
 use App\Models\InterestedUser;
+use App\Models\CourseType;
 
 class CourseController extends Controller
 {
     public function index(){
 
-        $courses = Course::where('deleted_yn', 'N')->get();
+        $courses = Course::join('course_types', 'course.course_type_id', '=', 'course_types.type_id')
+                        ->where('deleted_yn', 'N')->get();
         return view('courses-list',['courses'=>$courses]);
         
     }
@@ -125,7 +127,9 @@ class CourseController extends Controller
 
     public function update(Request $request) {
         $course_id = $request->query('id');
-        $edit_course = Course::where('course_id', $course_id)->first();
+        $edit_course = Course::join('course_types', 'course.course_type_id', '=', 'course_types.type_id')
+                    ->where('course_id', $course_id)
+                    ->first();
         return view('/edit-course', [
             'edit_course'=>$edit_course,
             'course_id'=>$course_id,
@@ -138,7 +142,6 @@ class CourseController extends Controller
 
             $course_name =request('course_name');
             $course_code =request('course_code');
-            $course_price =request('course_price');
             $course_desc =request('course_desc'); 
             $course_type =request('course_type');     
 
@@ -146,7 +149,6 @@ class CourseController extends Controller
             ->update([
                 'course_name' => $course_name,
                 'course_code' => $course_code,
-                'course_price' => $course_price,
                 'course_description' => $course_desc,
                 'course_type' => $course_type,
             ]);
@@ -179,7 +181,7 @@ class CourseController extends Controller
         }
 
         return back()->with('message', 'Course Deleted');
-    }
+    }    
 
 }
 

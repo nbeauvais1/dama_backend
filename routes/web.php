@@ -73,7 +73,7 @@ Route::post('/course_inserted','App\Http\Controllers\InsertCourseController@inse
 Route::get('/update-course','App\Http\Controllers\CourseController@update');
 Route::post('/course-updated','App\Http\Controllers\CourseController@insertUpdate');
 Route::get('/delete-course','App\Http\Controllers\CourseController@delete');
-
+Route::post('/new_course_type_insert', 'App\Http\Controllers\InsertCourseController@insertType');
 // Course Sign Up
 Route::get('/courses-list','App\Http\Controllers\CourseController@index');
 Route::get('/course-form','App\Http\Controllers\CourseController@show');

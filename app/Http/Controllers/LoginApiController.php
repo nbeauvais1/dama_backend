@@ -5,12 +5,13 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Validator,Redirect,Response;
 Use App\Models\User;
+Use App\Models\Member;
 use DB;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Session;
 
-class LoginController extends Controller
+class LoginApiController extends Controller
 {
     public function index()
     {
