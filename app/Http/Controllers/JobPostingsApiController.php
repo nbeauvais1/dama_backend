@@ -39,7 +39,7 @@ class JobPostingsApiController extends Controller
             $posting->company_name = request('company_name');
             $posting->location = request('location');
             $posting->job_desc = request('job_desc');
-            $posting->user_id = session('session_user_id');
+            $posting->user_id = request('user_id');
 
             $posting->save();
 
