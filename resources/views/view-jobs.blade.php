@@ -1,8 +1,5 @@
-@include('header');
-<h1>Check out these nifty jobs we have available!</h1>
-@if(Session::has('msg'))
-    <p class="message">{{ Session::get('msg') }}</p>
-@endif
+@include('header')
+<h2>Check out these nifty jobs we have available!</h2>
     @foreach ($jobs as $job)
         <div class="card">
             <h2>{{ $job->job_title }}</h2>
@@ -15,4 +12,4 @@
             @endif
         </div>
         @endforeach
-@include('footer');
+@include('footer')

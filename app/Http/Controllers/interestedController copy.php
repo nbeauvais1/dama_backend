@@ -11,22 +11,15 @@ class interestedController extends Controller
 {
     public function save(Request $request){
         try{
-            $posting_id = $request->query('id');
-            $user_id = session('session_user_id');
+        $posting_id = $request->query('id');
+        $user_id = session('session_user_id');
 
-            $interestedUser = InterestedUser::where('posting_id', $posting_id)
-                        ->where('user_id', $user_id)
-                        ->update(array('interested_yn'=>"Y"));
-            
-            if ($interestedUser == null) {
+        $interested = new InterestedUser();
 
-            $interested = new InterestedUser();
+        $interested->posting_id = $posting_id;
+        $interested->user_id = $user_id;
 
-            $interested->posting_id = $posting_id;
-            $interested->user_id = $user_id;
-
-            $interested->save();
-            }
+        $interested->save();
         }
         catch (\Exception $e) {  
             return back()->with('error', "An error occured: " . $e->getMessage());
@@ -41,10 +34,8 @@ class interestedController extends Controller
     public function delete(Request $request){
         try{
         $posting_id = $request->query('id');
-        $user_id = session('session_user_id');
 
-        InterestedUser::where('posting_id', $posting_id)
-                    ->where('user_id', $user_id)
+        InterestedUser::where('user_job_id', $posting_id)
                     ->update(array('interested_yn'=>"N"));
         }
         catch (\Exception $e) {  

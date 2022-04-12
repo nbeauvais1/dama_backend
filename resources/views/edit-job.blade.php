@@ -1,5 +1,5 @@
 @include('header')
-    <h1>Edit your Posting</h1>
+    <h2>Edit your Posting</h2>
     <form action="/job_updated?id={{$post_id}}" method="POST">
        
         @csrf

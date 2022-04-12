@@ -62,12 +62,7 @@ class JobPostingsApiController extends Controller
 
     public function update(Request $request) {
         $posting_id = $request->query('id');
-        $job_2_edit = JobPostings::where('posting_id', $posting_id)->first();
-
-        return view('/edit-job', [
-                                'job_2_edit'=>$job_2_edit,
-                                'post_id'=>$posting_id,
-                                ]);
+        return JobPostings::where('posting_id', $posting_id)->get();
     }
 
     public function InsertUpdate(Request $request) {

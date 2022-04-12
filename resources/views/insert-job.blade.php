@@ -1,9 +1,9 @@
 @include('header')
-    <h1>Create a job posting!</h1>
+    <h2>Create a job posting!</h2>
     <form action="/job_inserted" method="POST">
         @csrf
             <label for="job_title">Job Title</label>
-            <input type="text" id="job_title" name="job_title"">
+            <input type="text" id="job_title" name="job_title">
 
             <label for="company_name">Company Name</label>
             <input type="text" id="company_name" name="company_name">

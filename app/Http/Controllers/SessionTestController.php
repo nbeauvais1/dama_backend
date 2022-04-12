@@ -11,10 +11,10 @@ class SessionTestController extends Controller
 {
     public function index() {
         if(session()->has('session_email')){
-            session::Flash('testMsg', 'You are logged in and will get a discount.');
+            session::Flash('message', 'You are logged in and will get a discount.');
         }
         else{
-            session::Flash('testMsg', 'You are not logged in and will pay full price.');
+            session::Flash('error', 'You are not logged in and will pay full price.');
         }
         return view('welcome');
     }    

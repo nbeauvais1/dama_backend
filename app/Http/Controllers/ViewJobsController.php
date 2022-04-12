@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use DB;
 use Session;
-use Validator;
+use Validator,Redirect,Response;
 use App\Models\JobPostings;
 use App\Models\applications;
 use Illuminate\Support\Facades\Mail;
@@ -42,6 +42,10 @@ class ViewJobsController extends Controller
     }
     
     public function mail(Request $request){
+
+    $validation = request()->validate([
+        'resume' => 'mimes:doc,docx,pdf',
+    ]);
 
     $posting_id = $request->query('id');    
 

@@ -11,7 +11,9 @@
 
             <label for="resume">Upload Your Resume</label>
             <input type="file" id="resume" name="resume">
-
+            @if(Session::has('msg'))
+            <p class="message">{{ Session::get('msg') }}</p>
+            @endif
             <input type="submit" name="send_app" value="Submit Application">
 </form>
 

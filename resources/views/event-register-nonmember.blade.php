@@ -1,8 +1,13 @@
 @include('header')
-<form action="/non-member-event-register" method="POST">
+<?php $event_id = $_GET['event_id']; 
+$event_title = DB::table('event')
+          ->where('event_id', '=', $event_id)
+          ->value('event_title');
+?>
+<form action="/non-member-event-register?event_id={{$event_id}}" method="POST">
     @csrf
-        <label for="event_id">Event to be Purchased</label>
-        <input type="text" id="event_id" name="event_id" value="{{ $event_id }}">
+        <label for="event_id">Event</label>
+        <input type="text" id="event_title" name="event_title" value="{{ $event_title }}" readonly>
 
         <label for="first_name">First Name</label>
         <input type="text" id="first_name" name="first_name">

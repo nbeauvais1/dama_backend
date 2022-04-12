@@ -7,9 +7,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class InterestedUser extends Model
 {
-    protected $table = 'user_job';
+    protected $table = 'interested_jobs';
     public const CREATED_AT = null;
     public const UPDATED_AT = null;
-    protected $primaryKey = 'user_job_id';
     use HasFactory;
 }

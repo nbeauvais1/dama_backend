@@ -30,7 +30,7 @@ $admin_status = DB::table('user')
 				<li><?php echo $event->event_type ?></li>
 				<li>$<?php echo $event->event_price ?></li>
 			</ul>
-			<p>With <?php echo $event->event_speaker; ?> as your speaker!</p>
+			
 			<p><?php echo $event->event_description ?></p>
 		</div>
 <?php

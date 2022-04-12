@@ -5,7 +5,7 @@
             
 
         @foreach ($courses as $course)
-        <h1>Purchase Course: {{ $course->course_name  }}</h1>
+        <h2>Purchase Course: {{ $course->course_name  }}</h2>
         @endforeach
         <!-- Session message -->
         

@@ -106,4 +106,5 @@ Route::get('/resetPassword/{token}','App\Http\Controllers\ForgotPasswordControll
 Route::post('/resetPassword','App\Http\Controllers\ForgotPasswordController@submitResetPasswordForm');
 
 // Email List
+Route::post('join_email', 'App\Http\Controllers\EmailListController@join');
 Route::get('/email-list','App\Http\Controllers\EmailListController@index');

@@ -1,34 +1,28 @@
-@include('header');
-
-<p>Currently bugged! Couldn't get the SQL to use the session user_id, so I hardcoded mine in (10) to get it to work</p>
-
-<h1>My Events</h1>
-<?php  
-/*$user_id_session= session('user_id_session');
-$events = DB::select('SELECT *
-FROM user_event
-INNER JOIN user
-ON user_event.user_id = user.user_id
-INNER JOIN event
-ON user_event.event_id = event.event_id WHERE user.user_id = $user_id_session AND event.event_date > CURDATE();');
-
-var_dump($events);*/
-?>
-
-<h2>Upccoming events</h2>
+@include('header')
+<?php $user_id = session('session_user_id'); ?>
+@if(!$user_id)
+<p class="error">You must be logged in to access this page.</p>
+<h2>My Events</h2>
+@else
+<h2>My Events</h2>
+<h3>Upcoming events</h3>
 <div>
 	<?php  
-		$user_id_session= session('user_id_session');
+		$user_id = session('session_user_id');
 		$events = DB::select('SELECT *
 		FROM user_event
 		INNER JOIN user
 		ON user_event.user_id = user.user_id
 		INNER JOIN event
-		ON user_event.event_id = event.event_id WHERE user.user_id = 10 AND event.event_date > CURDATE();');
+		ON user_event.event_id = event.event_id WHERE user.user_id = ? AND event.event_date > CURDATE();', [$user_id]);
 		foreach ($events as $event)
-        {
-    ?>      <div>
-                <h3><?php echo $event->event_title; ?></h3>
+    ?>
+        @if(!$events)
+        <p>You are not currently registered in any upcoming events.</p>
+        @endif
+        @foreach($events as $event)
+         <div class="card">
+                <h4><?php echo $event->event_title; ?></h4>
                 <ul>
                     <li><?php echo $event->event_date ?></li>
                     <li><?php echo $event->event_city ?></li>
@@ -37,22 +31,25 @@ var_dump($events);*/
                 </ul>
                 <p><?php echo $event->event_description ?></p>
             </div>
-        <?php } ?>
+        @endforeach
 </div>
-<h2>Previous Events</h2>
+<h3>Previous Events</h3>
 <div>
 	<?php  
-		$user_id_session= session('user_id_session');
+		$user_id = session('session_user_id');
 		$events = DB::select('SELECT *
 		FROM user_event
 		INNER JOIN user
 		ON user_event.user_id = user.user_id
 		INNER JOIN event
-		ON user_event.event_id = event.event_id WHERE user.user_id = 10 AND event.event_date <= CURDATE();');
-		foreach ($events as $event)
-        {
-    ?>      <div>
-                <h3><?php echo $event->event_title; ?></h3>
+		ON user_event.event_id = event.event_id WHERE user.user_id = ? AND event.event_date <= CURDATE();', [$user_id]);
+    ?>  
+        @if(!$events)
+        <p>You have not registered in any previous events.</p>
+        @endif
+		@foreach($events as $event)
+         <div class="card">
+                <h4><?php echo $event->event_title; ?></h4>
                 <ul>
                     <li><?php echo $event->event_date ?></li>
                     <li><?php echo $event->event_city ?></li>
@@ -61,5 +58,7 @@ var_dump($events);*/
                 </ul>
                 <p><?php echo $event->event_description ?></p>
             </div>
-        <?php } ?>
+        @endforeach
 </div>
+@endif
+@include('footer')

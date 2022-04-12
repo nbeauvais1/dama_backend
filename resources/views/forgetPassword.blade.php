@@ -7,11 +7,7 @@
                   <div class="card-header">Reset Password</div>
                   <div class="card-body">
   
-                    @if (Session::has('msg'))
-                         <div class="alert alert-success" role="alert">
-                            {{ Session::get('msg') }}
-                        </div>
-                    @endif
+                    
   
                       <form action="{{ url('forget-password') }}" method="POST">
                           @csrf

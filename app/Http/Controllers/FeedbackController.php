@@ -2,11 +2,31 @@
 
 namespace App\Http\Controllers;
 use DB;
+use App\Models\Feedback;
+use App\Models\Course;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\SendFeedback;
+
 class FeedbackController extends Controller
 { 
+    public function index(){
+
+        $courses =  DB::table('course')->where('deleted_yn', 'N')->get();
+        return view('survey',['courses'=>$courses]);
+        
+    }
  
-    public function store() {
+    public function store(Request $request) {
+        try{
+            $request->validate([
+                'hear' => 'required',
+                'prep' => 'required',
+                'cname' => 'required',
+                'cdate' => 'required',
+                'quality' => 'required',
+                'ccontent' => 'required',
+            ]);
         $hearAbout =request('hear');
         $hearOther =request('ifother1');
             if ($hearOther) {
@@ -19,6 +39,9 @@ class FeedbackController extends Controller
         }
         $topics =request('topics');
         $courseName =request('cname');
+        $course_id = Course::select('course_id')
+            ->where('course_name', $courseName)
+            ->value('course_id');
         $courseDate =request('cdate');
         $quality =request('quality');
         $qualityOther =request('ifother3');
@@ -33,14 +56,33 @@ class FeedbackController extends Controller
         $fname =request('fname');
         $lname =request('lname');
         $email =request('email');
-        $feedbackData=array('hearAbout'=>$hearAbout,'prep'=>$prep,"topics"=>$topics,"course_name"=>$courseName,"course_date"=>$courseDate, "quality"=>$quality,"course_content"=>$courseContent, "fname"=>$fname, "lname"=>$lname, "email"=>$email);
+        $feedbackData=array("hearAbout"=>$hearAbout,"prep"=>$prep,"topics"=>$topics,"course_name"=>$courseName,"course_id"=>$course_id,"course_date"=>$courseDate, "quality"=>$quality,"course_content"=>$courseContent, "fname"=>$fname, "lname"=>$lname, "email"=>$email);
         $insert_feedback = DB::table('feedback')->insert($feedbackData);
+
+        $damaEmail = 'ryanhoogewoonink@gmail.com';
+        $feedbackResults = array(
+            'hearAbout' => $hearAbout,
+            'prep' => $prep,
+            'topics' => $topics,
+            'course_name' => $courseName,
+            'course_id' => $course_id,
+            'course_date' => $courseDate,
+            'quality' => $quality,
+            'course_content' => $courseContent,
+            'fname' => $fname,
+            'lname' => $lname,
+            'email' => $email,
+        );
+        Mail::to($damaEmail)->send(new SendFeedback($feedbackData));
+        }
+        catch (\Exception $e) {  
+            return back()->with('error', "An error occured: " . $e->getMessage());
+        }
+        catch (\Error $e) {  
+            return back()->with('error', "An error occured: " . $e->getMessage());
+        }
         return redirect()->intended('/feedback-submitted');
 
-    }
-
-    public function index(){
-        return view('/survey');
     }
 
     public function submitted(){

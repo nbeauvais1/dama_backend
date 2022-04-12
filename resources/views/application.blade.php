@@ -1,5 +1,5 @@
-@include('header');
-<h1>CHECK OUT THESE EPIC PEOPLE WHO WANT TO WORK FOR YOU!</h1>
+@include('header')
+<h2>CHECK OUT THESE EPIC PEOPLE WHO WANT TO WORK FOR YOU!</h2>
 
 @foreach ($applications as $application)
 
@@ -8,4 +8,4 @@
 </div>
 @endforeach
 
-@include('footer');
+@include('footer')

@@ -31,6 +31,7 @@ class ForgotPasswordController extends Controller
        */
       public function submitForgetPasswordForm(Request $request)
       {
+          try{
           $request->validate([
               'email' => 'required|email|exists:user',
           ]);
@@ -47,8 +48,14 @@ class ForgotPasswordController extends Controller
               $message->to($request->email);
               $message->subject('Reset Password');
           });
-  
-          return back()->with('msg', 'We have e-mailed your password reset link!');
+          }
+          catch (\Exception $e) {  
+            return back()->with('error', "An error occured: " . $e->getMessage());
+          }
+          catch (\Error $e) {  
+            return back()->with('error', "An error occured: " . $e->getMessage());
+          }
+          return back()->with('message', 'We have e-mailed your password reset link!');
       }
       /**
 
@@ -66,29 +73,43 @@ class ForgotPasswordController extends Controller
        */
       public function submitResetPasswordForm(Request $request)
       {
+
           $request->validate([
               'email' => 'required|email|exists:user',
               'password' => 'required|string|min:6|confirmed',
               'password_confirmation' => 'required'
           ]);
-  
+          try{
           $updatePassword = DB::table('password_resets')
                               ->where([
                                 'email' => $request->email, 
                                 'token' => $request->token
                               ])
                               ->first();
-  
+          }
+          catch (\Exception $e) {  
+            return back()->with('error', "An error occured: " . $e->getMessage());
+          }
+          catch (\Error $e) {  
+            return back()->with('error', "An error occured: " . $e->getMessage());
+          }
+          
           if(!$updatePassword){
               return back()->withInput()->with('error', 'Invalid token!');
           }
-  
+          try{
           $user = newMembership::where('email', $request->email)
                       ->update(['password' => Hash::make($request->password)]);
  
           DB::table('password_resets')->where(['email'=> $request->email])->delete();
-  
-          return redirect('/signup')->with('msg', 'Your password has been changed!');
+          }
+          catch (\Exception $e) {  
+            return back()->with('error', "An error occured: " . $e->getMessage());
+          }
+          catch (\Error $e) {  
+            return back()->with('error', "An error occured: " . $e->getMessage());
+          }
+          return redirect('/ct-dashboard')->with('message', 'Your password has been changed!');
           //^^Will be dashboard
       }
 }

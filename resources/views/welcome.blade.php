@@ -15,4 +15,13 @@
             
             <a href="/signed-out">Sign Out</a>
         </div>
+        <form action="/join_email" method="POST">
+
+        <label for="email">Join the Email List</label>
+        <input type="text" name="email" id="email">
+
+        <input type="submit" value="Join Now">
+
+
+        </form>
 @include('footer')        

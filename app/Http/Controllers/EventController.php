@@ -21,14 +21,13 @@ class EventController extends Controller
     public function insert() {
         try{
         $event_title =request('event_title');
-        $event_speaker =request('event_speaker');
         $event_type =request('event_type');
         $event_price =request('event_price');
         $event_date =request('event_date');
         $event_city =request('event_city');
         $event_description =request('event_description');
 
-        $data=array('event_title'=>$event_title,'event_speaker'=>$event_speaker,'event_type'=>$event_type,"event_price"=>$event_price,"event_date"=>$event_date,"event_description"=>$event_description, "event_city"=>$event_city);
+        $data=array('event_title'=>$event_title,'event_type'=>$event_type,"event_price"=>$event_price,"event_date"=>$event_date,"event_description"=>$event_description, "event_city"=>$event_city);
         
         DB::table('event')->insert($data);
         }
@@ -77,7 +76,6 @@ class EventController extends Controller
         $event_id = $request->query('id');     
 
         $event_title =request('event_title');
-        $event_speaker =request('event_speaker');
         $event_type =request('event_type');
         $event_price =request('event_price');
         $event_date =request('event_date');
@@ -87,7 +85,6 @@ class EventController extends Controller
         Event::where('event_id', $event_id)
         ->update([
             'event_title' => $event_title,
-            'event_speaker' => $event_speaker,
             'event_type' => $event_type,
             'event_price' => $event_price,
             'event_date' => $event_date,

@@ -24,6 +24,7 @@ Route::get('/all_jobs', function () {
 });
 Route::post('/job_inserted','App\Http\Controllers\JobPostingsApiController@insert');
 Route::get('/job_filled','App\Http\Controllers\JobPostingsApiController@delete');
+Route::get('/update_job','App\Http\Controllers\JobPostingsApiController@update');
 Route::post('/job_updated','App\Http\Controllers\JobPostingsApiController@insertUpdate');
 
 

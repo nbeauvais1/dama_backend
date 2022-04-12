@@ -5,11 +5,10 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Event extends Model
+class EmailList extends Model
 {
-    protected $table = 'event';
+    use HasFactory;
+    protected $table = 'email_list';
     public const CREATED_AT = null;
     public const UPDATED_AT = null;
-    protected $primaryKey = 'event_id';
-    use HasFactory;
 }

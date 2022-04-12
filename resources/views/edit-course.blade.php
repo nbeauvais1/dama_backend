@@ -18,12 +18,6 @@ $admin_status = DB::table('user')
 
         <label for="course_desc">Course Description</label>
         <input type="text" id="course_desc" name="course_desc" value="{{$edit_course->course_description}}">
-
-        <label for="course_type">Course Type</label>
-        <select name="course_type" id="course_type">
-            <option value="self-study">Self-Study</option>
-            <option value="instructor-led">Instructor-Led</option>
-        </select>
         
         <input type="submit" value="Update Course" name="course-btn" class="button">
 

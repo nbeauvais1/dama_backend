@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use DB;
 use App\Models\Member;
+use App\Models\EmailList;
 
 
 class EmailListController extends Controller
@@ -18,4 +19,16 @@ class EmailListController extends Controller
 
         return view('email-list', ['emails' => $member_emails,]);        
     }
+
+    public function join(Request $request){
+
+        $email = new EmailList();
+
+            $email->email = request('email');
+
+        $email->save();
+
+        return redirect('/welcome');       
+    }
+
 }
