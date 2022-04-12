@@ -17,6 +17,10 @@ Route::get('/all_courses', function () {
 Route::get('/all_events', function () {
     return Event::where('deleted_yn', 'N')->get();
 });
+Route::post('/events', 'App\Http\Controllers\EventApiController@insert');
+Route::get('/edit-event','App\Http\Controllers\EventApiController@update');
+Route::post('/event-updated','App\Http\Controllers\EventApiController@insertUpdate');
+Route::get('/delete-event','App\Http\Controllers\EventApiController@delete');
 
 // Job Postings
 Route::get('/all_jobs', function () {
