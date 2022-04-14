@@ -15,6 +15,7 @@ Route::get('/all_courses', function () {
                     ->get();
 });
 
+
 Route::get('/purchase_course','App\Http\Controllers\CourseApiController@show');
 Route::post('/courses_non_member','App\Http\Controllers\CourseApiController@insertNonMember');
 
