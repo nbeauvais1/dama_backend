@@ -77,7 +77,8 @@ Route::post('/new_course_type_insert', 'App\Http\Controllers\InsertCourseControl
 // Course Sign Up
 Route::get('/courses-list','App\Http\Controllers\CourseController@index');
 Route::get('/course-form','App\Http\Controllers\CourseController@show');
-Route::post('/courses','App\Http\Controllers\CourseController@insert');
+Route::get('/courses','App\Http\Controllers\CourseController@insert');
+Route::post('/courses_non_member','App\Http\Controllers\CourseController@insertNonMember');
 Route::get('/ct-dashboard','App\Http\Controllers\DashBoardNController@dashb');
 
 // Job Postings

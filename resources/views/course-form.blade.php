@@ -5,11 +5,11 @@
             
 
         @foreach ($courses as $course)
-        <h2>Purchase Course: {{ $course->course_name  }}</h2>
+        <h2>Purchase {{ $course->course_name  }}</h2>
         @endforeach
         <!-- Session message -->
         
-        <form action="/courses" method="POST">
+        <form action="/courses_non_member?id={{ $course_id }}" method="POST">
         @csrf
             <label for="course_id">Course to be Purchased</label>
             <input type="text" id="course_id" name="course_id" value="{{ $course_id }}">

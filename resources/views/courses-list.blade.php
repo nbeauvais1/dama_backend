@@ -19,7 +19,7 @@ $admin_status = DB::table('user')
                 <p>Price: ${{ $course->course_price }}</p>    
             @if(Session()->has('session_email'))            
             @endif
-                <a href="/course-form?id={{ $course->course_id }}" class="button">Purchase Course</a>
+                <a href="/courses?id={{ $course->course_id }}" class="button">Purchase Course</a>
             @if($admin_status == 'Y')
 			<a href="/update-course?id={{ $course->course_id }}"  class="button">Edit</a>
 			<a href="/delete-course?id={{ $course->course_id }}"  class="button">Delete</a>

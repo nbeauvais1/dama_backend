@@ -10,17 +10,22 @@ use App\Models\MembershipType;
 
 // Courses
 Route::get('/all_courses', function () {
-    return Course::where('deleted_yn', 'N')->get();
+    return Course::join('course_types', 'course.course_type_id', '=', 'course_types.type_id')
+                    ->where('deleted_yn', 'N')
+                    ->get();
 });
+
+Route::get('/purchase_course','App\Http\Controllers\CourseApiController@show');
+Route::post('/courses_non_member','App\Http\Controllers\CourseApiController@insertNonMember');
 
 // Events
 Route::get('/all_events', function () {
     return Event::where('deleted_yn', 'N')->get();
 });
 Route::post('/events', 'App\Http\Controllers\EventApiController@insert');
-Route::get('/edit-event','App\Http\Controllers\EventApiController@update');
-Route::post('/event-updated','App\Http\Controllers\EventApiController@insertUpdate');
-Route::get('/delete-event','App\Http\Controllers\EventApiController@delete');
+// Event Register
+Route::get('/event_member','App\Http\Controllers\EventRegisterApiController@store');
+Route::get('/event_non_member','App\Http\Controllers\EventRegisterApiController@insertNonMember');
 
 // Job Postings
 Route::get('/all_jobs', function () {
@@ -30,7 +35,6 @@ Route::post('/job_inserted','App\Http\Controllers\JobPostingsApiController@inser
 Route::get('/job_filled','App\Http\Controllers\JobPostingsApiController@delete');
 Route::get('/update_job','App\Http\Controllers\JobPostingsApiController@update');
 Route::post('/job_updated','App\Http\Controllers\JobPostingsApiController@insertUpdate');
-
 
 // Users
 Route::get('/all_members', function () {
@@ -44,7 +48,6 @@ Route::get('/all_members', function () {
 Route::get('/all_membership_types', function () {
     return MembershipType::all();
 });
-
 
 // Login
 Route::post('/signin', 'App\Http\Controllers\LoginApiController@postLogin');
