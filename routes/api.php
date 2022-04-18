@@ -10,11 +10,10 @@ use App\Models\MembershipType;
 
 // Courses
 Route::get('/all_courses', function () {
-    return Course::join('course_types', 'course.course_type_id', '=', 'course_types.type_id')
-                    ->where('deleted_yn', 'N')
-                    ->get();
+    return Course::join('course_course_types', 'course.course_id', '=', 'course_course_types.course_id')
+    ->join('course_types', 'course_types.type_id', '=', 'course_course_types.type_id')
+    ->where('deleted_yn', 'N')->get();
 });
-
 
 Route::get('/purchase_course','App\Http\Controllers\CourseApiController@show');
 Route::post('/courses_non_member','App\Http\Controllers\CourseApiController@insertNonMember');
