@@ -6,6 +6,7 @@ use App\Models\Course;
 use App\Models\Event;
 use App\Models\JobPostings;
 use App\Models\Member;
+use App\Models\Membership;
 use App\Models\MembershipType;
 
 // Courses
@@ -41,6 +42,30 @@ Route::get('/all_members', function () {
     $now = DB::raw('NOW()');
     return Member::join('user_membership', 'user.user_id', '=', 'user_membership.user_id')
     ->where('expiry_date', '>', $now)
+    ->get();
+});
+
+Route::get('/user_membership', function () {    
+    $user_id = request('user_id');
+    return Membership::select('*')
+    ->join('user_membership', 'membership.membership_id', '=', 'user_membership.membership_id')
+    ->where('user_id', $user_id)
+    ->get();
+});
+
+Route::get('/user_courses', function () {    
+    $user_id = request('user_id');
+    return Course::select('*')
+    ->join('user_course', 'course.course_id', '=', 'user_course.course_id')
+    ->where('user_id', $user_id)
+    ->get();
+});
+
+Route::get('/user_events', function () {    
+    $user_id = request('user_id');
+    return Event::select('*')
+    ->join('user_event', 'event.event_id', '=', 'user_event.event_id')
+    ->where('user_id', $user_id)
     ->get();
 });
 
