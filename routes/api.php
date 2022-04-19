@@ -11,6 +11,10 @@ use App\Models\MembershipType;
 
 // Courses
 Route::get('/all_courses', function () {
+    return Course::where('deleted_yn', 'N')->get();
+});  
+  
+Route::get('/all_courses_and_types', function () {
     return Course::join('course_course_types', 'course.course_id', '=', 'course_course_types.course_id')
     ->join('course_types', 'course_types.type_id', '=', 'course_course_types.type_id')
     ->where('deleted_yn', 'N')->get();
