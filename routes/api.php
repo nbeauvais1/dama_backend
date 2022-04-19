@@ -20,17 +20,11 @@ Route::get('/all_courses_and_types', function () {
     ->where('deleted_yn', 'N')->get();
 });
 
-Route::get('/purchase_course','App\Http\Controllers\CourseApiController@show');
-Route::post('/courses_non_member','App\Http\Controllers\CourseApiController@insertNonMember');
-
 // Events
 Route::get('/all_events', function () {
     return Event::where('deleted_yn', 'N')->get();
 });
 Route::post('/events', 'App\Http\Controllers\EventApiController@insert');
-// Event Register
-Route::get('/event_member','App\Http\Controllers\EventRegisterApiController@store');
-Route::get('/event_non_member','App\Http\Controllers\EventRegisterApiController@insertNonMember');
 
 // Job Postings
 Route::get('/all_jobs', function () {
@@ -49,6 +43,7 @@ Route::get('/all_members', function () {
     ->get();
 });
 
+// User Membership
 Route::get('/user_membership', function () {    
     $user_id = request('user_id');
     return Membership::select('*')
@@ -56,6 +51,10 @@ Route::get('/user_membership', function () {
     ->where('user_id', $user_id)
     ->get();
 });
+
+// User Courses
+Route::post('/purchase_course_member','App\Http\Controllers\CourseApiController@insertMember');
+Route::post('/purchase_course_non_member','App\Http\Controllers\CourseApiController@insertNonMember');
 
 Route::get('/user_courses', function () {    
     $user_id = request('user_id');
@@ -65,6 +64,7 @@ Route::get('/user_courses', function () {
     ->get();
 });
 
+// User Events
 Route::get('/user_events', function () {    
     $user_id = request('user_id');
     return Event::select('*')
@@ -72,6 +72,9 @@ Route::get('/user_events', function () {
     ->where('user_id', $user_id)
     ->get();
 });
+
+Route::post('/purchase_event_member','App\Http\Controllers\EventRegisterApiController@store');
+Route::post('/purchase_event_non_member','App\Http\Controllers\EventRegisterApiController@insertNonMember');
 
 // Membership Types
 Route::get('/all_membership_types', function () {
