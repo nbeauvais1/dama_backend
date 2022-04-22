@@ -4,7 +4,8 @@
 
 
 @foreach($user as $user)
-<img src="{{ asset('/storage/images/'.$user->profile_image) }}" alt="Profile Image">
+<img src="{{ asset('storage/images/'.$user->profile_image) }}" alt="Profile Image">
+
 <h2>Welcome <span>{{ $user->first_name }}</span> to the Test Dashboard</h2>
 @endforeach
 
@@ -37,7 +38,7 @@
         <div class="card">
             <h3>{{$interested_post->job_title}}</h3>
             <a href="/job_applied?id={{ $interested_post->posting_id }}" class="button">Apply to Job</a>
-            <a href="/not-interested?id={{$interested_post->posting_id}}" class="button">No Longer Interested</a>
+            <a href="/not-interested?id={{$interested_post->user_job_id}}" class="button">No Longer Interested</a>
         </div>
 @endforeach
 

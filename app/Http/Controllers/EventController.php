@@ -99,7 +99,7 @@ class EventController extends Controller
             return back()->with('error', "An error occurred: " . $e->getMessage());
         }
         session::Flash('message', 'Event updated!');
-        return redirect('/event_list');
+        return redirect('/event-admin');
     }
 
     public function delete(Request $request) {

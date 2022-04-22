@@ -15,9 +15,9 @@ Route::get('/all_courses', function () {
 });  
   
 Route::get('/all_courses_and_types', function () {
-    return Course::join('course_course_types', 'course.course_id', '=', 'course_course_types.course_id')
-    ->join('course_types', 'course_types.type_id', '=', 'course_course_types.type_id')
-    ->where('deleted_yn', 'N')->get();
+    return Course::leftJoin('course_types', 'course.course_type_id', '=', 'course_types.type_id')
+    ->where('deleted_yn', 'N')
+    ->get();
 });
 
 // Events
@@ -28,9 +28,10 @@ Route::post('/events', 'App\Http\Controllers\EventApiController@insert');
 
 // Job Postings
 
-$user_id = request('user_id');
 
 Route::get('/all_jobs', function () {
+
+$user_id = request('user_id');    
     return JobPostings::where('job_filled_yn', 'N')
                 ->where('user_id', '!=', $user_id)
                 ->get();
@@ -41,6 +42,9 @@ Route::get('/update_job','App\Http\Controllers\JobPostingsApiController@update')
 Route::post('/job_updated','App\Http\Controllers\JobPostingsApiController@insertUpdate');
 
 // Apply to Job
+
+Route::get('/apply_to','App\Http\Controllers\ViewJobsApiController@apply');
+
 Route::post('/job_applied','App\Http\Controllers\ViewJobsApiController@mail');
 
 // Users

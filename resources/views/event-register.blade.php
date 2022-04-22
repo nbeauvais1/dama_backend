@@ -1,4 +1,5 @@
 @include('header')
+<?php $event_id = $_GET['event_id'];  ?>
 <form action="/non-member-event-register" method="POST">
     @csrf
         <label for="event_id">Event to be Purchased</label>

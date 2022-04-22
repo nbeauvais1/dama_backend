@@ -59,7 +59,7 @@ class FeedbackController extends Controller
         $feedbackData=array("hearAbout"=>$hearAbout,"prep"=>$prep,"topics"=>$topics,"course_name"=>$courseName,"course_id"=>$course_id,"course_date"=>$courseDate, "quality"=>$quality,"course_content"=>$courseContent, "fname"=>$fname, "lname"=>$lname, "email"=>$email);
         $insert_feedback = DB::table('feedback')->insert($feedbackData);
 
-        $damaEmail = 'ryanhoogewoonink@gmail.com';
+        $damaEmail = 'damaedmonton@gmail.com';
         $feedbackResults = array(
             'hearAbout' => $hearAbout,
             'prep' => $prep,

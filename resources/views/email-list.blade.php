@@ -1,4 +1,4 @@
-@include('header');
+@include('header')
 <?php  
 $user_id = session('session_user_id');
 $admin_status = DB::table('user')

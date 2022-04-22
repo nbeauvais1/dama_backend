@@ -50,6 +50,18 @@ Route::get('/my-events', function () {
     return view('my-events');
 });
 
+Route::get('/add-corporate-member', function () {
+    return view('add-corporate-member');
+});
+
+
+// Admin
+Route::get('/course-admin', 'App\Http\Controllers\CourseController@admin');
+Route::get('/event-admin', function () { return view('event-admin'); });
+
+Route::post('/add-corporate-member', 'App\Http\Controllers\corporateMembershipController@addCorporateMember');
+Route::get('/remove-corporate-member', 'App\Http\Controllers\corporateMembershipController@removeCorporateMember');
+
 
 
 Route::post('/session-test', 'App\Http\Controllers\SessionTestController@store');
@@ -74,11 +86,11 @@ Route::get('/update-course','App\Http\Controllers\CourseController@update');
 Route::post('/course-updated','App\Http\Controllers\CourseController@insertUpdate');
 Route::get('/delete-course','App\Http\Controllers\CourseController@delete');
 Route::post('/new_course_type_insert', 'App\Http\Controllers\InsertCourseController@insertType');
+
 // Course Sign Up
 Route::get('/courses-list','App\Http\Controllers\CourseController@index');
 Route::get('/course-form','App\Http\Controllers\CourseController@show');
-Route::get('/courses','App\Http\Controllers\CourseController@insert');
-Route::post('/courses_non_member','App\Http\Controllers\CourseController@insertNonMember');
+Route::post('/courses','App\Http\Controllers\CourseController@insert');
 Route::get('/ct-dashboard','App\Http\Controllers\DashBoardNController@dashb');
 
 // Job Postings
@@ -106,6 +118,15 @@ Route::post('/forget-password','App\Http\Controllers\ForgotPasswordController@su
 Route::get('/resetPassword/{token}','App\Http\Controllers\ForgotPasswordController@showResetPasswordForm');
 Route::post('/resetPassword','App\Http\Controllers\ForgotPasswordController@submitResetPasswordForm');
 
+//Course Feedback
+Route::get('/course-feedback','App\Http\Controllers\FeedbackController@index');
+Route::post('/feedback-submit', 'App\Http\Controllers\FeedbackController@store');
+Route::get('/feedback-submitted', 'App\Http\Controllers\FeedbackController@submitted');
+
 // Email List
-Route::post('join_email', 'App\Http\Controllers\EmailListController@join');
 Route::get('/email-list','App\Http\Controllers\EmailListController@index');
+
+//Edit Profile
+Route::get('/edit-profile', 'App\Http\Controllers\EditProfileController@index');
+Route::post('/edited-profile', 'App\Http\Controllers\EditProfileController@editprofile');
+Route::get('image/{filename}', 'DisplayImageController@displayImage')->name('image.displayImage');

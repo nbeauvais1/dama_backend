@@ -1,13 +1,21 @@
-@include('header');
+@include('header')
+<div class="admin">
 <?php  
 $user_id = session('session_user_id');
 $admin_status = DB::table('user')
                 ->where('user_id', '=', $user_id)
                 ->value('admin_yn');
 ?>
+@if(Session::has('msg'))
+        <p class="message">{{ Session::get('msg') }}</p>
+@endif
 
 @if($admin_status == 'Y')
-<h2>Update Course</h2>
+
+        <div class="title">
+            <h2>Editing: {{$edit_course->course_name}}</h2>
+            <a href="/course-admin">Go Back</a>
+        </div>
 <form action="/course-updated?id={{$course_id}}" method="POST">
         @csrf
         <label for="course_code">Course Code</label>
@@ -21,8 +29,8 @@ $admin_status = DB::table('user')
         
         <input type="submit" value="Update Course" name="course-btn" class="button">
 
-        @else
-        <p class="error">You must be an admin to use this page.</p>
-        <h2>Update Course</h2>
-    @endif
+@else
+    <p class="error">You must be an admin to use this page.</p>
+    <h2>Update Course</h2>
+@endif
 @include('footer')

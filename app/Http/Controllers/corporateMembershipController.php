@@ -14,6 +14,12 @@ class corporateMembershipController extends Controller
         $membership_id = DB::table('user_membership')
                     ->where('user_membership_id', '=', $user_membership_id)
                     ->value('membership_id');
+        $expiry_date_parent = DB::table('user_membership')
+                    ->where('user_membership_id', '=', $user_membership_id)
+                    ->value('expiry_date');
+        $corporate_name_parent = DB::table('user_membership')
+                    ->where('user_membership_id', '=', $user_membership_id)
+                    ->value('corporate_name');
         $current_members_count = DB::table('corporate_membership')
                     ->join('user_membership', 'user_membership.user_membership_id', '=', 'corporate_membership.user_membership_id')
                     ->join('user', 'corporate_membership.user_id', '=', 'user.user_id')
@@ -42,7 +48,7 @@ class corporateMembershipController extends Controller
                 
                 $corporateMembershipData=array('user_membership_id'=>$user_membership_id,'user_id'=>$user->user_id, 'email'=>$email);
                 $insert_corporate_member = DB::table('corporate_membership')->insertGetId($corporateMembershipData);
-                $userMembershipData=array('user_id'=>$user->user_id,'membership_id'=>'6', 'corporate_membership_id'=>$insert_corporate_member);
+                $userMembershipData=array('user_id'=>$user->user_id,'membership_id'=>'6', 'corporate_membership_id'=>$insert_corporate_member, 'expiry_date'=>$expiry_date_parent, 'corporate_name'=>$corporate_name_parent);
                 DB::table('user_membership')->insert($userMembershipData);
                 DB::commit();
                 return back()->with('message', 'Corporate member has been successfully added.');

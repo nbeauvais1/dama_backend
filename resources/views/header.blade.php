@@ -6,7 +6,9 @@
     
     <link href="{{ asset('css/modern-reset.css') }}" rel="stylesheet">
     <link href="{{ asset('css/styles.css') }}" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300&family=Source+Sans+Pro&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@300;400;500&display=swap" rel="stylesheet">
 </head>
 <body>
     <header>
@@ -18,11 +20,11 @@
                 <li><a href="/signup">Sign Up For a Membership</a></li>
                 @endif
                 <li><a href="/add-corporate-member">Add Corporate Members</a></li>
+                <li><a href="/event-admin">Manage Events</a></li>
                 <li><a href="/event_list">All Events</a></li>
                 <li><a href="/my-events">My Events</a></li>
-                <li><a href="/events">Create An Event</a></li>
-                <li><a href="/courses-list">Courses</a></li>
-                <li><a href="/insert-course">Insert Course</a></li>
+                <li><a href="/course-admin">Manage Courses</a></li>
+                <li><a href="/courses-list">All Courses</a></li>
                 <li><a href="/view-jobs">Job Postings</a></li>
                 <li><a href="/course-feedback">Course Feedback</a></li>
                 <li><a href="/email-list">Email List</a></li>

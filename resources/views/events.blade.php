@@ -1,4 +1,5 @@
 @include('header')
+<div class="admin">
 <?php  
 $user_id = session('session_user_id');
 $admin_status = DB::table('user')
@@ -7,7 +8,10 @@ $admin_status = DB::table('user')
 ?>
 
 @if($admin_status == 'Y')
-<h2>Create an Event</h2>
+
+<div class="title"><h2>Insert a New Event</h2>
+    <a href="/event-admin">Go Back</a>
+</div>
 <form action="/events" method="POST" class="event-form">
 	@csrf
 
@@ -43,6 +47,7 @@ $admin_status = DB::table('user')
         <p class="error">You must be an admin to use this page.</p>
         <h2>Create an Event</h2>
     @endif
+</div> <!-- End of Admin -->	
 @include('footer')
 
 

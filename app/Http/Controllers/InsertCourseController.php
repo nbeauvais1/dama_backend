@@ -7,6 +7,7 @@ use DB;
 use Session;
 use App\Models\Course;
 use App\Models\CourseType;
+use App\Models\CourseCourseTypes;
 
 class InsertCourseController extends Controller
 {
@@ -16,17 +17,18 @@ class InsertCourseController extends Controller
         return view('insert-course', ['course_types'=> $course_types,]);
     }
 
-    public function insert() {
-
+    public function insert(Request $request) {   
         try{
-        $course = new Course();
 
-        $course->course_code = request('course_code');
-        $course->course_name = request('course_name');
-        $course->course_description = request('course_desc');
-        $course->course_type_id = request('course_type');
+            $course = new Course();
 
-        $course->save();
+            $course->course_code = request('course_code');
+            $course->course_name = request('course_name');
+            $course->course_description = request('course_desc');
+            $course->course_type_id = request('course_type');
+
+            $course->save();
+
         }
         catch (\Exception $e) {  
             return back()->with('error', "An error occured: " . $e->getMessage());
@@ -34,19 +36,30 @@ class InsertCourseController extends Controller
         catch (\Error $e) {  
             return back()->with('error', "An error occured: " . $e->getMessage());
         }
-        
 
-        return redirect('/courses-list');
+
+        return redirect('/course-admin');
 
     }
 
     public function insertType(Request $request) {
+        try{
 
-        $type = new CourseType();
-            $type->course_type_name = request('type_name');
-            $type->course_price = request('type_price');
-            $type->save();
-        session::Flash('message', 'Your new course type has been added.');   
-        return redirect('/insert-course'); 
+            $type = new CourseType();
+                $type->course_type_name = request('type_name');
+                $type->course_price = request('type_price');
+                $type->course_price_member = request('type_price_member');
+                $type->course_price_corporate = request('type_price_corporate');
+                $type->save();
+            session::Flash('message', 'Your new course type has been added.');   
+            return redirect('/insert-course');
+
+        }
+        catch (\Exception $e) {  
+            return back()->with('error', "An error occured: " . $e->getMessage());
+        }
+        catch (\Error $e) {  
+            return back()->with('error', "An error occured: " . $e->getMessage());
+        }
     }
 }

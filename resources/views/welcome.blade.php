@@ -15,10 +15,14 @@
             
             <a href="/signed-out">Sign Out</a>
         </div>
-        <form action="/join_email" method="POST">
+        <form action="/join-email" method="POST">
+            @csrf
 
         <label for="email">Join the Email List</label>
-        <input type="text" name="email" id="email">
+        <input type="email" name="email" id="email">
+        @if ($errors->has('email'))
+            <span class="error">{{ $errors->first('email') }}</span>
+        @endif
 
         <input type="submit" value="Join Now">
 

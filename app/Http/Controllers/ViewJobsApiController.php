@@ -23,8 +23,7 @@ class ViewJobsApiController extends Controller
     public function mail(Request $request){;
 
     $validator = Validator::make($request->all(), [
-        'resume' => 'required',
-        'resume' => 'mimes:doc,docx,pdf',
+        'resume' => 'required|mimes:doc,docx,pdf'
     ]);
 
     if($validator->fails())

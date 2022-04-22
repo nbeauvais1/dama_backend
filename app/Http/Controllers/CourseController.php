@@ -17,9 +17,24 @@ class CourseController extends Controller
 {
     public function index(){
 
-        $courses = Course::join('course_types', 'course.course_type_id', '=', 'course_types.type_id')
-                        ->where('deleted_yn', 'N')->get();
-        return view('courses-list',['courses'=>$courses]);
+        $courses = Course::leftJoin('course_types', 'course.course_type_id', '=', 'course_types.type_id')
+        ->where('deleted_yn', 'N')
+        ->get();
+
+        return view('courses-list',[
+            'courses'=>$courses
+        ]);
+        
+    }
+
+    public function admin(){
+        $courses = Course::leftJoin('course_types', 'course.course_type_id', '=', 'course_types.type_id')
+        ->where('deleted_yn', 'N')
+        ->get();
+
+        return view('course-admin',[
+            'courses'=>$courses
+        ]);
         
     }
 
@@ -101,15 +116,13 @@ class CourseController extends Controller
 
             $course_name =request('course_name');
             $course_code =request('course_code');
-            $course_desc =request('course_desc'); 
-            $course_type =request('course_type');     
+            $course_desc =request('course_desc');    
 
             Course::where('course_id', $course_id)
             ->update([
                 'course_name' => $course_name,
                 'course_code' => $course_code,
                 'course_description' => $course_desc,
-                'course_type' => $course_type,
             ]);
         }
         catch (\Exception $e) {  
@@ -120,7 +133,7 @@ class CourseController extends Controller
         }
 
         session::Flash('message', 'Course updated!');
-        return redirect('/courses-list');
+        return redirect('/course-admin');
     }
 
     public function delete(Request $request) {

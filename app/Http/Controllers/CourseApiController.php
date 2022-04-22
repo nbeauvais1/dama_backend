@@ -16,22 +16,21 @@ use App\Models\CourseType;
 
 class CourseApiController extends Controller
 {
-    public function insert(Request $request) {
+    public function insertMember(Request $request) {
 
         try{
             $course_id = $request->query('id');
             $user_id = request('user_id');;
-            if(!$user_id){
-               return redirect()->intended("/course-form?id=$course_id");
-            }
+            
             $course = new userCourse();
 
             $course->user_id = $user_id;
             $course->course_id = $course_id;
             $course->save();
         
-            session::Flash('message', 'Thank you for purchasing a course!');
-            return redirect('/ct-dashboard');
+            return response()->json([
+                'message' => 'Thank you for purchasing a course.', 
+            ]);
             
         }
         catch (\Exception $e) {  

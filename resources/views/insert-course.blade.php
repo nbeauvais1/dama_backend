@@ -1,4 +1,5 @@
 @include('header')
+<div class="admin">
 <?php  
 $user_id = session('session_user_id');
 $admin_status = DB::table('user')
@@ -9,7 +10,10 @@ $admin_status = DB::table('user')
         <p class="message">{{ Session::get('msg') }}</p>
 @endif
      @if($admin_status == 'Y')
-     <h2>Insert a New Course</h2>
+        <div class="title"><h2>Insert a New Course</h2>
+            <a href="/course-admin">Go Back</a>
+        </div>
+     
     <form action="/course_inserted" method="POST">
     @csrf
         <label for="course_code">Course Code</label>
@@ -24,14 +28,15 @@ $admin_status = DB::table('user')
         <label for="course_type">Course Type</label>
         <select name="course_type" id="course_type">
             @foreach ($course_types as $course_type)
-            <option value="{{ $course_type->type_id }}">{{ $course_type->course_type_name }}</option>
+                <option value="{{ $course_type->type_id }}">{{ $course_type->course_type_name }}</option>
             @endforeach
-        </select>
+            </select>
 
         <input type="submit" name="insert_course" value="Create Course">
     </form>
-
-    <h2>Create New Course Type</h2>
+    <div class="title-2">
+        <h2>Create New Course Type</h2>
+    </div>
     <form action="new_course_type_insert" method="POST">
     @csrf
 
@@ -41,6 +46,12 @@ $admin_status = DB::table('user')
         <label for="type_price">Course Type Price</label>
         <input type="text" id="type_price" name="type_price">
         
+        <label for="type_price_member">Course Type Price - Member</label>
+        <input type="text" id="type_price_member" name="type_price_member">
+        
+        <label for="type_price_corporate">Course Type Price - Corporate</label>
+        <input type="text" id="type_price_corporate" name="type_price_corporate">
+
         <input type="submit" name="insert_course_type" value="Create New Course Type">
 
     </form>
@@ -49,5 +60,5 @@ $admin_status = DB::table('user')
     <p class="error">You must be an admin to use this page.</p>
     <h2>Insert a New Course</h2>
     @endif
-    </body>
+</div>
 @include('footer')

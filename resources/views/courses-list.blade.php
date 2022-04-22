@@ -16,7 +16,11 @@ $admin_status = DB::table('user')
                 <h2>{{ $course->course_code }}: {{ $course->course_name }}</h2>
                 <p>{{ $course->course_description }}</p>
                 <p>Course Type: {{ $course->course_type_name }}</p>
-                <p>Price: ${{ $course->course_price }}</p>    
+                <p>Price: ${{ $course->course_price }}</p>
+                <p>Members Price: ${{ $course->course_price_member }}</p>  
+                <p>Corporate Members Price: ${{ $course->course_price_corporate }}</p>
+            
+            
             @if(Session()->has('session_email'))            
             @endif
                 <a href="/courses?id={{ $course->course_id }}" class="button">Purchase Course</a>
